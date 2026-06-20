@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BBU work5</title>
+</head>
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: rgb(100, 237, 237);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: "Roboto Mono", monospace;
+        }
+        .container {
+            width: 80%;
+            height: 600px;
+            display: flex;
+            gap: 1%;
+        }
+        /* LEFT SIDE – 4 BIG BOXES */
+        .box-left {
+            width: 49%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2%;
+        }
+        .big-box {
+            width: 49%;
+            height: 49%;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: orange;
+        }
+        .big-box .icon{
+            display: flex;
+        }
+        .small-box .icon{
+            display: flex;
+        }
+        .icon i{
+            margin-top: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: black;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+        .big-box p {
+            font-weight: 700;
+            margin-bottom: 10px;
+            margin-left: 4px;
+        }
+        .value {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .value h3 {
+            font-size: 38px;
+        }
+        .val1 {
+            background: black;
+            padding: 3px 8px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }       
+        .val1 h5 {
+            color: white;
+            font-size: 12px;
+        }
+        /* RIGHT SIDE – 6 SMALL BOXES */
+        .box-right {
+            width: 50%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2%;
+        }
+        .small-box {
+            width: 49%;
+            height: 32%;
+            background-color: lightgray;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .small-box p {
+            font-weight: 700;
+            margin-bottom: 10px;
+            margin-left: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- LEFT 4 BIG BOXES -->
+        <div class="box-left">
+            <div class="big-box" style="background:#F5B400;">
+                <div class="icon">
+                <i class='fas fa-globe'></i>
+                <p>DESIGN</p>
+                </div>
+                <div class="value">
+                    <h3>509</h3>
+                    <div class="val1"><h5>4.53%</h5></div>
+                </div>
+            </div>
+            <div class="big-box" style="background:#A88BFF;">
+                <div class="icon">
+                    <i class='fas fa-globe'></i>
+                    <p>ILLUSTRATION</p>
+                </div>
+                <div class="value">
+                    <h3>498</h3>
+                    <div class="val1"><h5>8.9%</h5></div>
+                </div>
+            </div>
+            <div class="big-box" style="background:#A88BFF;">
+                <div class="icon">
+                    <i class='fas fa-globe'></i>
+<p>DEVOPS</p>
+                </div>
+                <div class="value">
+                    <h3>551</h3>
+                    <div class="val1"><h5>1.32%</h5></div>
+                </div>
+            </div>
+            <div class="big-box" style="background:#A88BFF;">
+                <div class="icon">
+                    <i class='fas fa-globe'></i>
+<p>TESTING</p></div>
+                <div class="value">
+                    <h3>532</h3>
+                    <div class="val1"><h5>9%</h5></div>
+                </div>
+            </div>
+        </div>
+        <!-- RIGHT 6 SMALL BOXES -->
+        <div class="box-right">
+            <div class="small-box">
+                <div class="icon">
+                    <i class='fas fa-globe'></i>
+                    <p>PROMOTION</p>
+                </div>
+                <div class="value">
+                    <h3>434</h3>
+                    <div class="val1"><h5>10.31%</h5></div>
+                </div>
+            </div>
+            <div class="small-box">
+                <div class="icon">
+                    <i class='fas fa-globe'></i>
+                    <p>MARKETING</p>
+                </div>
+                <div class="value">
+                    <h3>380</h3>
+                    <div class="val1"><h5>12%</h5></div>
+                </div>
+            </div>
+            <div class="small-box" style="background-color: rgb(48, 189, 48);">
+                <div class="icon">
+                    <i class='fas fa-globe'></i>
+                    <p>SMM</p>
+                </div>
+                <div class="value">
+                    <h3>445</h3>
+                    <div class="val1"><h5>2.44%</h5></div>
+                </div>
+            </div>
+            <div class="small-box" style="background-color: rgb(48, 189, 48);">
+                <div class="icon">
+                    <i class='fas fa-globe'></i>
+                    <p>RESEARCH</p>
+                </div>
+                <div class="value">
+                    <h3>353</h3>
+                    <div class="val1"><h5>25%</h5></div>
+                </div>
+            </div>
+            <div class="small-box" style="background-color: #F5B400">
+                <div class="icon">
+                    <i class='fas fa-globe'></i>
+                    <p>FRONTENO</p>
+                </div>
+                <div class="value">
+                    <h3>412</h3>
+                    <div class="val1"><h5>1.32%</h5></div>
+                </div>
+            </div>
+            <div class="small-box" style="background-color: rgb(247, 53, 53)">
+                <div class="icon">
+                    <i class='fas fa-globe'></i>
+                    <p>SALES</p>
+                </div>
+                <div class="value">
+                    <h3>331</h3>
+                    <div class="val1"><h5>5.21%</h5></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

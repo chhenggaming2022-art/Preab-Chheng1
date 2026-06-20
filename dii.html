@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ហ្គេមត្រីស៊ីចំណី</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        canvas {
+            background: linear-gradient(#0a557a, #031c29);
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            border-radius: 10px;
+            cursor: none; /* លាក់ Mouse ធម្មតា */
+        }
+        #scoreBoard {
+            position: absolute;
+            top: 20px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="scoreBoard">ពិន្ទុ: <span id="score">0</span></div>
+    <canvas id="gameCanvas" width="800" height="500"></canvas>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreDisplay = document.getElementById("score");
+
+        let score = 0;
+
+        // ព័ត៌មានត្រីរបស់អ្នកលេង (ត្រីធំ)
+        const player = {
+            x: 400,
+            y: 250,
+            radius: 25,
+            color: "#ff9f43",
+            speed: 0.1
+        };
+
+        // ទីតាំង Mouse
+        const mouse = { x: 400, y: 250 };
+
+        // ស្ដាប់ការរំកិល Mouse លើ Canvas
+        canvas.addEventListener("mousemove", (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+
+        // បង្កើតកូនត្រីតូចៗ (ចំណី)
+        const fishFood = [];
+        function createFood() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 5 + 5,
+                color: hsl(${Math.random() * 360}, 100%, 60%),
+                speedX: (Math.random() - 0.5) * 3,
+                speedY: (Math.random() - 0.5) * 3
+            };
+        }
+
+        // បង្កើតចំណីដំបូងចំនួន ២០
+        for (let i = 0; i < 20; i++) {
+            fishFood.push(createFood());
+        }
+
+        // គណនាចម្ងាយរវាងវត្ថុពីរ
+        function getDistance(x1, y1, x2, y2) {
+            return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        }
+
+        // រង្វង់ loop ដំណើរការហ្គេម
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // រំកិលត្រីរបស់អ្នកលេងតាម Mouse (ទាញឱ្យដេញតាមបែបដងខ្លួនទន់ភ្លន់)
+            player.x += (mouse.x - player.x) * player.speed;
+            player.y += (mouse.y - player.y) * player.speed;
+
+            // គូរត្រីរបស់អ្នកលេង (រាងសាមញ្ញ)
+            ctx.beginPath();
+            ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
+            ctx.fillStyle = player.color;
+            ctx.fill();
+            ctx.closePath();
+            
+            // កន្ទុយត្រី
+            ctx.beginPath();
+            ctx.moveTo(player.x - player.radius, player.y);
+            ctx.lineTo(player.x - player.radius - 15, player.y - 10);
+            ctx.lineTo(player.x - player.radius - 15, player.y + 10);
+            ctx.fillStyle = player.color;
+            ctx.fill();
+            ctx.closePath();
+
+            // គ្រប់គ្រង និងគូរកូនត្រីតូចៗ
+            fishFood.forEach((food, index) => {
+                // រំកិលកូនត្រី
+                food.x += food.speedX;
+                food.y += food.speedY;
+
+                // បុកជញ្ជាំងប្លាតត្រឡប់មកវិញ
+                if (food.x - food.radius < 0 || food.x + food.radius > canvas.width) food.speedX *= -1;
+                if (food.y - food.radius < 0 || food.y + food.radius > canvas.height) food.speedY *= -1;
+
+                // គូរកូនត្រី
+                ctx.beginPath();
+                ctx.arc(food.x, food.y, food.radius, 0, Math.PI * 2);
+                ctx.fillStyle = food.color;
+                ctx.fill();
+                ctx.closePath();
+
+                // ពិនិត្យមើលបើត្រីធំស៊ីកូនត្រី
+                const distance = getDistance(player.x, player.y, food.x, food.y);
+                if (distance < player.radius + food.radius) {
+                    // លុបកូនត្រីដែលត្រូវស៊ីចេញ និងបង្កើតថ្មីមួយជំនួស
+                    fishFood.splice(index, 1);
+                    fishFood.push(createFood());
+                    
+                    // ឡើងពិន្ទុ
+                    score += 1;
+                    scoreDisplay.innerText = score;
+
+                    // ត្រីធំឡើងមាឌបន្តិចម្តងៗ
+                    if(player.radius < 60) player.radius += 0.5;
+                }
+            });
+        }
+
+        // ចាប់ផ្តើមហ្គេម
+        animate();
+    </script>
+</body>
+</html>
